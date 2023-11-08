@@ -92,7 +92,7 @@ describe('WebTable', () => {
     cy.get('.smart-table-edit-data-cell .ng-scope [name="Password"]').type('Pass2')    
 
     // Add user details on 'Customer' field
-    cy.get('.smart-table-edit-data-cell .ng-scope .radio [value="15"]').click()
+    cy.get('.smart-table-edit-data-cell .ng-scope .radio [value="16"]').click()
 
     // Add user details on 'Role' field
     cy.get('.smart-table-edit-data-cell .ng-scope [name="RoleId"]').select('Customer')
