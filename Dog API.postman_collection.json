@@ -1,0 +1,288 @@
+{
+	"info": {
+		"_postman_id": "b1414f5e-e49d-4108-88bb-ebe6eef959f4",
+		"name": "Dog API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27937711"
+	},
+	"item": [
+		{
+			"name": "GetDog",
+			"item": [
+				{
+					"name": "TC1 Get Dog - with all dog breeds from the request returned",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Status\r",
+									"pm.test(\"Status\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.status).to.eql('success');\r",
+									"});\r",
+									"\r",
+									"//Check Retriever is within list\r",
+									"pm.test(\"Retriever within list\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.have.property('retriever')\r",
+									"});\r",
+									"\r",
+									"//Check Retriever is within list\r",
+									"pm.test(\"Retriever within list\", function () {\r",
+									"   pm.expect(pm.response.text()).to.include(\"retriever\");\r",
+									"});\r",
+									"\r",
+									"//Check Dog list returned\r",
+									"pm.test(\"Dog list returned\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.not.eql(undefined);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/breeds/list/all",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"breeds",
+								"list",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC2 Get Dog - with all sub breeds from the 'retriever' list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Status\r",
+									"pm.test(\"Status\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.status).to.eql('success');\r",
+									"});\r",
+									"\r",
+									"//Check Retriever Dog list returned\r",
+									"pm.test(\"Retriever Dog list returned\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.not.eql(undefined);\r",
+									"});\r",
+									"pm.test(\"Chesapeake Dog returned\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.include('chesapeake');\r",
+									"});\r",
+									"pm.test(\"Curly Dog returned\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.include('curly');\r",
+									"});\r",
+									"pm.test(\"Flatcoated Dog returned\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.include('flatcoated');\r",
+									"});\r",
+									"pm.test(\"Golden Dog returned\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.include('golden');\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.globals.set('breed', 'retriever');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/breed/{{breed}}/list",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"breed",
+								"{{breed}}",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC3 Get Dog - with a random image link for the sub-breed “golden”",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Status\r",
+									"pm.test(\"Status\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.status).to.eql('success');\r",
+									"});\r",
+									"\r",
+									"//Message\r",
+									"pm.test(\"Message\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.not.eql(undefined);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.globals.set('breed', 'retriever');\r",
+									"pm.globals.set('sub-breed', 'golden');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/breed/{{breed}}/{{sub-breed}}/images/random",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"breed",
+								"{{breed}}",
+								"{{sub-breed}}",
+								"images",
+								"random"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://dog.ceo",
+			"type": "string"
+		},
+		{
+			"key": "breed",
+			"value": "retriever",
+			"type": "default",
+			"disabled": true
+		}
+	]
+}
